@@ -1,0 +1,5 @@
+*.csv
+*.DS_Store
+*.docx
+*.pptx
+__init__.py
