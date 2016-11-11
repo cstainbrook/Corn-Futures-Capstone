@@ -15,6 +15,8 @@ def lag_six_months():
     illinois_temp = np.append(df['Illinois 6 Month Temp'][127:], np.full(127, np.nan))
     nebraska_precip = np.append(df['Nebraska 6 Month Precip'][127:], np.full(127, np.nan))
     nebraska_temp = np.append(df['Nebraska 6 Month Temp'][127:], np.full(127, np.nan))
+    minnesota_precip = np.append(df['Minnesota 6 Month Precip'][127:], np.full(127, np.nan))
+    minnesota_temp = np.append(df['Minnesota 6 Month Temp'][127:], np.full(127, np.nan))
 
     df['Price 6 Months Ago'] = prices
     df['Supply 6 Months Ago'] = supplies
@@ -28,8 +30,10 @@ def lag_six_months():
     df['Illinois Temp 6 Months Ago'] = illinois_temp
     df['Nebraska Precip 6 Months Ago'] = nebraska_precip
     df['Nebraska Temp 6 Months Ago'] = nebraska_temp
+    df['Minnesota Precip 6 Months Ago'] = minnesota_precip
+    df['Minnesota Temp 6 Months Ago'] = minnesota_temp
 
-    df.drop(['Supply Level', 'ONI Index', 'USD Index', 'Soybean Prices', 'Oil Prices', 'Iowa 6 Month Precip', 'Iowa 6 Month Temp', 'Illinois 6 Month Precip', 'Illinois 6 Month Temp', 'Nebraska 6 Month Precip', 'Nebraska 6 Month Temp'], axis=1, inplace=True)
+    df.drop(['Supply Level', 'ONI Index', 'USD Index', 'Soybean Prices', 'Oil Prices', 'Iowa 6 Month Precip', 'Iowa 6 Month Temp', 'Illinois 6 Month Precip', 'Illinois 6 Month Temp', 'Nebraska 6 Month Precip', 'Nebraska 6 Month Temp', 'Minnesota 6 Month Precip', 'Minnesota 6 Month Temp'], axis=1, inplace=True)
 
 
 if __name__ == '__main__':

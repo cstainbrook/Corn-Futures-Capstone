@@ -121,6 +121,16 @@ def add_weather_data():
     main_df['Nebraska 6 Month Precip'] = main_df['Date'].map(lambda x: nebraska_df['Six Month Precip'][x] if x in nebraska_df['Six Month Precip'] else np.NAN)
     main_df['Nebraska 6 Month Temp'] = main_df['Date'].map(lambda x: nebraska_df['Six Month Temp'][x] if x in nebraska_df['Six Month Temp'] else np.NAN)
 
+    minnesota_df = pd.read_csv('Weather Data/minnesota_weather_full.csv')
+    minnesota_df.drop_duplicates('Date', inplace=True)
+    minnesota_df.set_index('Date', inplace=True)
+    minnesota_df['Six Month Precip'] = pd.rolling_mean(minnesota_df['Precipitation'], 182)
+    minnesota_df['Six Month Precip'] = minnesota_df['Six Month Precip'].map(lambda x: round(x, 2))
+    minnesota_df['Six Month Temp'] = pd.rolling_mean(minnesota_df['Maximum Temp'], 182)
+    minnesota_df['Six Month Temp'] = minnesota_df['Six Month Temp'].map(lambda x: round(x, 2))
+    main_df['Minnesota 6 Month Precip'] = main_df['Date'].map(lambda x: minnesota_df['Six Month Precip'][x] if x in minnesota_df['Six Month Precip'] else np.NAN)
+    main_df['Minnesota 6 Month Temp'] = main_df['Date'].map(lambda x: minnesota_df['Six Month Temp'][x] if x in minnesota_df['Six Month Temp'] else np.NAN)
+
 def make_full_database():
     add_day_of_year()
     add_acreage()

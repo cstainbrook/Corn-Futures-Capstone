@@ -209,9 +209,10 @@ if __name__ == '__main__':
     #RMSE of 3 Layer Model w/linear hidden, sigmoid output, 8 node input, 2 node layer: 44.4(train), 118.9(test)
     #RMSE of previous with weather data included: 40.7(train), 110.8(test)
     #RMSE of previous with weather data included, 6 nodes: 40.4(train), 106.5(test)
+    #RMSE of previous with weather data included and Minnesota, 6 nodes: (train), (test)
 
 
-    six_df.drop(['USD Index 6 Months Ago', 'Oil Prices 6 Months Ago', 'Soybean Prices 6 Months Ago', 'Corn Syrup', 'E85'], axis=1, inplace=True)
+    six_df.drop(['USD Index 6 Months Ago', 'Oil Prices 6 Months Ago', 'Soybean Prices 6 Months Ago', 'Corn Syrup', 'E85', 'Minnesota Precip 6 Months Ago', 'Minnesota Temp 6 Months Ago'], axis=1, inplace=True)
     six_df = six_df[::-1]
     six_df.dropna(axis=0, inplace=True)
     dates = six_df.pop('Date').map(lambda x: datetime.strptime(x, '%Y-%m-%d'))

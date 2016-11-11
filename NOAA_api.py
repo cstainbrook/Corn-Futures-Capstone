@@ -26,10 +26,10 @@ def make_noaa_request(date, fips):
 if __name__ == '__main__':
 
     weather_df = pd.DataFrame()
-    fips = 27
-    token = os.environ['NOAA_API_8']
+    fips = 18
+    token = os.environ['NOAA_API_0']
 
-    date = datetime(2008, 3, 25)
+    date = datetime(1959, 7, 8)
     end_date = datetime(2016, 10, 30)
     while date < end_date:
         str_date = str(date).split()[0]
