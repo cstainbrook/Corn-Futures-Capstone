@@ -7,3 +7,7 @@ Going into the project, I had two main goals:
 * Develop a model that would earn acceptable investment returns for traders
 
 To achieve these objectives, I developed several neural networks, which relied on market data as inputs.  While I largely accomplished my goal of predicting direction, investment returns would be substandard for all but those with a very low cost of capital.
+
+# Technology Used
+* Python Packages
+    * Keras
