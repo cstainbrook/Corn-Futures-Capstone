@@ -103,7 +103,7 @@ def plot_nino_adjusted():
     x = np.array([x.to_pydatetime() for x in x])
     y_avg = movingaverage(y, 504)
     nino_mask = (df['ONI Index'] > 0).values
-    
+
     fig = plt.figure(figsize=(14,8))
     ax = fig.add_subplot(1,1,1)
     loc = YearLocator(5)
@@ -186,7 +186,7 @@ def plot_production_price():
     ax2 = fig.add_subplot(111, sharex=ax, frameon=False)
     ax2.yaxis.tick_right()
     ax2.yaxis.set_label_position('right')
-    ax2.plot(x_prod, prod, color='blue', label='Production')
+    ax2.plot(x_prod, prod, color='k', label='Production')
     plt.ylabel('Corn Production (Million Bushels)', size=14, labelpad=30)
     ax.xaxis.set_major_locator(loc)
     plt.suptitle('Corn Prices vs. Production:\n1959 - 2016', size=20, alpha=.8)
@@ -201,8 +201,8 @@ if __name__ == '__main__':
     # plot_daily_change()
     # plot_corn_log()
     # plot_corn_prices_adjusted()
-    plot_nino_adjusted()
+    # plot_nino_adjusted()
     # plot_adjusted_log()
     # plot_log_daily_change()
     # perform_dickey_fuller()
-    # plot_production_price()
+    plot_production_price()
