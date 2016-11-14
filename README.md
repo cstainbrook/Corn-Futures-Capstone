@@ -14,6 +14,17 @@ I evaluated my models using RMSE, hit rate (the percentage of times I predicted 
 ![Image of Results]
 (Figures/neuralnet_six_month.png)
 
+I am most pleased with my hit rate results, correctly identifying the direction of movement 75% of the time when the current price is at least 10% different from my predicted price.  This climbs to 98% when the current price is at least 30% different from my predicted price.
+
+
+Through the EDA process, I also uncovered some interesting phenomena in the data.  As shown below, the introduction of corn syrup and E85 produced demand shocks that appear to be correlated with a steep increase in price.  One can immediately see the dynamics of supply and demand over time in the second graph, as the increase in production has led to a consistent decline in inflation adjusted price.
+
+![Image of Demand Shocks]
+(Figures/inflation_adjusted_demand_shocks.png)
+
+![Image of Supply Demand]
+(Figures/price_vs_production.png)
+
 # Technology Used
 * Python Packages
     * Keras
