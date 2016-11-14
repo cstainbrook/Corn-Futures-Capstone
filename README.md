@@ -23,8 +23,16 @@ To achieve these objectives, I developed several neural networks, which relied o
 # Data
 While not all datasets collected were used as features for the final models, the following was collected.
 
-### Interactive Brokers
+### Interactive Brokers (Daily Data)
 * Corn Futures Prices
 * Soybean Futures Prices
 * Oil Futures Prices
 * $USD Exchange Rate Index
+
+### USDA (Yearly and Quarterly Data)
+* Corn Supply Levels
+* Acreage Planted
+* Yield Estimates
+
+### NOAA (Daily Data)
+* Precipitation and Temperatures for Iowa, Illinois, Nebraska, Minnesota, and Indiana
