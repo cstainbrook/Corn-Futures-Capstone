@@ -11,6 +11,7 @@ To achieve these objectives, I developed several neural networks, which relied o
 # Results
 I evaluated my models using RMSE, hit rate (the percentage of times I predicted the correct direction of price movement), and trading return.  The graph below shows my 6-month prediction model for both in-sample and out-of-sample results.  The shaded regions show a confidence interval, as represented by 2 x RMSE.
 
+
 ![Image of Results]
 (Figures/neuralnet_six_month.png)
 
