@@ -22,8 +22,6 @@ Through the EDA process, I also uncovered some interesting phenomena in the data
 ![Image of Demand Shocks]
 (Figures/inflation_adjusted_demand_shocks.png)
 
-![Image of Supply Demand]
-(Figures/price_vs_production.png)
 
 # Technology Used
 * Python Packages
