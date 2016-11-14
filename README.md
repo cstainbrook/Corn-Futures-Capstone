@@ -8,6 +8,12 @@ Going into the project, I had two main goals:
 
 To achieve these objectives, I developed several neural networks, which relied on market data as inputs.  While I largely accomplished my goal of predicting direction, investment returns would be substandard for all but those with a very low cost of capital.
 
+# Results
+I evaluated my models using RMSE, hit rate (the percentage of times I predicted the correct direction of price movement), and trading return.  The graph below shows my 6-month prediction model for both in-sample and out-of-sample results.  The shaded regions show a confidence interval, as represented by 2 x RMSE.
+
+![Image of Results]
+(Figures/neuralnet_six_month.png)
+
 # Technology Used
 * Python Packages
     * Keras
