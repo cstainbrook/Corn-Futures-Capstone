@@ -23,7 +23,7 @@ To achieve these objectives, I developed several neural networks, which relied o
 # Data
 While not all datasets collected were used as features for the final models, the following was collected.
 
-## Interactive Brokers
+### Interactive Brokers
 * Corn Futures Prices
 * Soybean Futures Prices
 * Oil Futures Prices
