@@ -11,3 +11,20 @@ To achieve these objectives, I developed several neural networks, which relied o
 # Technology Used
 * Python Packages
     * Keras
+    * Pandas
+    * Numpy
+    * SciPy
+    * StatsModels
+    * IbPy
+    * Flask
+
+* AWS EC2
+
+# Data
+While not all datasets collected were used as features for the final models, the following was collected.
+
+## Interactive Brokers
+* Corn Futures Prices
+* Soybean Futures Prices
+* Oil Futures Prices
+* $USD Exchange Rate Index
