@@ -177,7 +177,7 @@ def trading_results(strategy='simple', discount=0):
         buy_mask = trading_df['Price at Time of Prediction'] < trading_df['Prediction']*(1-discount)
         sell_mask = trading_df['Price at Time of Prediction']*(1-discount) > trading_df['Prediction']
         buy_profits = trading_df[buy_mask]['Settle'] - trading_df[buy_mask]['Price at Time of Prediction'].values
-        sell_profits = trading_df[~buy_mask]['Price at Time of Prediction'] - trading_df[~buy_mask]['Settle'].values
+        sell_profits = trading_df[sell_mask]['Price at Time of Prediction'] - trading_df[sell_mask]['Settle'].values
         total_profit = sum(buy_profits) + sum(sell_profits)
         total_return = total_profit/(sum(trading_df[buy_mask]['Price at Time of Prediction']) + sum(trading_df[sell_mask]['Price at Time of Prediction']))
         annualized_return = (1+total_return)**(1/((len(trading_df[buy_mask])+len(trading_df[sell_mask]))/365.)) - 1
@@ -187,7 +187,7 @@ def trading_results(strategy='simple', discount=0):
         buy_mask = trading_df['Price at Time of Prediction'] < trading_df['Prediction']*(1-discount)
         sell_mask = trading_df['Price at Time of Prediction']*(1-discount) > trading_df['Prediction']
         buy_hit_rate = sum((trading_df[buy_mask]['Settle'] - trading_df[buy_mask]['Price at Time of Prediction'].values)>0)
-        sell_hit_rate = sum((trading_df[~buy_mask]['Price at Time of Prediction'] - trading_df[~buy_mask]['Settle'].values)>0)
+        sell_hit_rate = sum((trading_df[sell_mask]['Price at Time of Prediction'] - trading_df[sell_mask]['Settle'].values)>0)
         total_hit_rate = float((buy_hit_rate + sell_hit_rate))/(len(trading_df[buy_mask]) + len(trading_df[sell_mask]))
         total_trades = len(trading_df[buy_mask]) + len(trading_df[sell_mask])
         return total_hit_rate, total_trades
@@ -207,7 +207,7 @@ if __name__ == '__main__':
     #RMSE of previous with weather data included, 7 nodes: 32.8(train), 75.47(test)
     #RMSE of previous with 3 hidden nodes: 33.6(train), 72.9(test)
 
-    three_df.drop(['USD Index 3 Months Ago', 'Oil Prices 3 Months Ago', 'Soybean Prices 3 Months Ago', 'Corn Syrup', 'E85'], axis=1, inplace=True)
+    three_df.drop(['USD Index 3 Months Ago', 'Oil Prices 3 Months Ago', 'Soybean Prices 3 Months Ago', 'Corn Syrup', 'E85', 'Minnesota Precip 3 Months Ago', 'Minnesota Temp 3 Months Ago'], axis=1, inplace=True)
     three_df = three_df[::-1]
     three_df.dropna(axis=0, inplace=True)
     dates = three_df.pop('Date').map(lambda x: datetime.strptime(x, '%Y-%m-%d'))
@@ -239,4 +239,4 @@ if __name__ == '__main__':
     plot_current_pred()
 
     total_profit, total_return, annualized_return = trading_results()
-    total_hit_rate = trading_results(strategy='hit_rate')
+    total_hit_rate, total_trades = trading_results(strategy='hit_rate', discount=.3)

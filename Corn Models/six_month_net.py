@@ -157,7 +157,18 @@ def plot_current_pred():
     # plt.show()
     plt.savefig('../Figures/current_pred_six.png')
 
-def trading_results(strategy='simple', discount=0):
+def plot_gains_losses(gains_losses):
+    fig = plt.figure(figsize=(14,8))
+    ax = fig.add_subplot(1,1,1)
+    ax.hist(gains_losses, bins=100, color='r', alpha=.7)
+    plt.axvline(x=0, color='k')
+    plt.ylabel('Frequency', size=14, labelpad=30)
+    plt.xlabel('Profit/Loss', size=14, labelpad=10)
+    plt.suptitle('Profit/Loss on All Trades', size=20, alpha=.8)
+    plt.savefig('../Figures/profits_hist_six.png')
+    # plt.show()
+
+def trading_results(strategy='simple', discount=0, leverage=1):
     trading_df = current_df[['Date','Settle']]
     trading_df['Date'] = trading_df['Date'].map(lambda x: datetime.strptime(x, '%Y-%m-%d'))
     trading_df.set_index('Date', inplace=True)
@@ -166,31 +177,38 @@ def trading_results(strategy='simple', discount=0):
     trading_df['Price at Time of Prediction'] = current_df['Settle'][127:(127+len(test_preds[0]))].values
     if strategy=='simple':
         buy_mask = trading_df['Price at Time of Prediction'] < trading_df['Prediction']
-        buy_profits = trading_df[buy_mask]['Settle'] - trading_df[buy_mask]['Price at Time of Prediction'].values
-        sell_profits = trading_df[~buy_mask]['Price at Time of Prediction'] - trading_df[~buy_mask]['Settle'].values
+        buy_profits = (trading_df[buy_mask]['Settle'] - trading_df[buy_mask]['Price at Time of Prediction'].values) * leverage
+        sell_profits = (trading_df[~buy_mask]['Price at Time of Prediction'] - trading_df[~buy_mask]['Settle'].values) * leverage
         total_profit = sum(buy_profits) + sum(sell_profits)
         total_return = total_profit/sum(trading_df['Price at Time of Prediction'])
         annualized_return = (1+total_return)**(1/(len(trading_df)/365.)) - 1
-        return total_profit, total_return, annualized_return
+        all_profits = np.append(buy_profits, sell_profits)
+        max_loss = min(all_profits)
+        plot_gains_losses(all_profits)
+        return total_profit, total_return, annualized_return, max_loss
 
     if strategy=='discount':
         buy_mask = trading_df['Price at Time of Prediction'] < trading_df['Prediction']*(1-discount)
         sell_mask = trading_df['Price at Time of Prediction']*(1-discount) > trading_df['Prediction']
-        buy_profits = trading_df[buy_mask]['Settle'] - trading_df[buy_mask]['Price at Time of Prediction'].values
-        sell_profits = trading_df[~buy_mask]['Price at Time of Prediction'] - trading_df[~buy_mask]['Settle'].values
+        buy_profits = (trading_df[buy_mask]['Settle'] - trading_df[buy_mask]['Price at Time of Prediction'].values) * leverage
+        sell_profits = (trading_df[sell_mask]['Price at Time of Prediction'] - trading_df[sell_mask]['Settle'].values) * leverage
         total_profit = sum(buy_profits) + sum(sell_profits)
         total_return = total_profit/(sum(trading_df[buy_mask]['Price at Time of Prediction']) + sum(trading_df[sell_mask]['Price at Time of Prediction']))
         annualized_return = (1+total_return)**(1/((len(trading_df[buy_mask])+len(trading_df[sell_mask]))/365.)) - 1
-        return total_profit, total_return, annualized_return
+        all_profits = np.append(buy_profits, sell_profits)
+        max_loss = min(all_profits)
+        plot_gains_losses(all_profits)
+        return total_profit, total_return, annualized_return, max_loss
 
     if strategy=='hit_rate':
         buy_mask = trading_df['Price at Time of Prediction'] < trading_df['Prediction']*(1-discount)
         sell_mask = trading_df['Price at Time of Prediction']*(1-discount) > trading_df['Prediction']
         buy_hit_rate = sum((trading_df[buy_mask]['Settle'] - trading_df[buy_mask]['Price at Time of Prediction'].values)>0)
-        sell_hit_rate = sum((trading_df[~buy_mask]['Price at Time of Prediction'] - trading_df[~buy_mask]['Settle'].values)>0)
+        sell_hit_rate = sum((trading_df[sell_mask]['Price at Time of Prediction'] - trading_df[sell_mask]['Settle'].values)>0)
         total_hit_rate = float((buy_hit_rate + sell_hit_rate))/(len(trading_df[buy_mask]) + len(trading_df[sell_mask]))
         total_trades = len(trading_df[buy_mask]) + len(trading_df[sell_mask])
         return total_hit_rate, total_trades
+
 
 if __name__ == '__main__':
     six_df = pd.read_csv('../six_month_database.csv', index_col=0)
@@ -243,5 +261,5 @@ if __name__ == '__main__':
     # current_upper_bound = current_prediction + test_preds[1]
     # plot_current_pred()
 
-    total_profit, total_return, annualized_return = trading_results(strategy='discount', discount=0.3)
+    total_profit, total_return, annualized_return, max_loss = trading_results(strategy='discount', discount=.3)
     total_hit_rate, total_trades = trading_results(strategy='hit_rate', discount=.3)
