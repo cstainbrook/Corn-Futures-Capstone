@@ -36,3 +36,14 @@ While not all datasets collected were used as features for the final models, the
 
 ### NOAA (Daily Data)
 * Precipitation and Temperatures for Iowa, Illinois, Nebraska, Minnesota, and Indiana
+* ONI Index
+
+# Model
+The final models I developed are feed-forward neural networks, which use either 6-month or 3-month lagged data as features.  The structure of the nets is quite simple, consisting of 3 layers, the hidden layer having a linear activation function and the output layer having a sigmoid activation function.  I used the lagged features rather than current data to simulate forecasting 3 or 6 months out with the information that is readily available.
+
+# Website
+After finishing the modeling phase of the project, I developed a website, cooperscorn.com, to display the results of my research as well as current predictions.  The website was built using flask bootstrapping and is hosted on an Amazon EC2 instance.
+
+# Future Steps
+* Monitor my predictions to ensure outcomes are comparable with current out-of-sample forecasts
+* Speak with futures traders to identify other potentially import features
