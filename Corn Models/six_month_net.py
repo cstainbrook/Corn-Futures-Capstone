@@ -110,6 +110,7 @@ def plot_predictions():
     ax.fill_between(dates_plot, test_preds_plot, (test_preds_plot + 2*test_preds[1]), color='red', alpha=.4)
     ax.fill_between(dates_plot, test_preds_plot, (test_preds_plot + -2*test_preds[1]), color='red', alpha=.4)
 
+    ax.tick_params(axis='both', which='major', labelsize=14)
     plt.legend(loc=2, fontsize=14)
     plt.ylabel('Corn Futures Price ($)', size=14, labelpad=30)
     plt.suptitle('Neural Network Predictions\nUsing 6 Month Lagged Features', size=20, alpha=.8)
@@ -254,12 +255,12 @@ if __name__ == '__main__':
     plot_predictions()
 
     current_df = pd.read_csv('../full_database.csv')
-    # prices=[]
-    # get_current_prices()
-    # current_prediction = make_current_pred()
-    # current_lower_bound = current_prediction - test_preds[1]
-    # current_upper_bound = current_prediction + test_preds[1]
-    # plot_current_pred()
+    prices=[]
+    get_current_prices()
+    current_prediction = make_current_pred()
+    current_lower_bound = current_prediction - test_preds[1]
+    current_upper_bound = current_prediction + test_preds[1]
+    plot_current_pred()
 
     total_profit, total_return, annualized_return, max_loss = trading_results(strategy='discount', discount=.1, leverage=15)
     total_hit_rate, total_trades = trading_results(strategy='hit_rate', discount=.3)

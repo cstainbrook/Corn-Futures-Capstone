@@ -110,6 +110,7 @@ def plot_predictions():
     ax.fill_between(dates_plot, test_preds_plot, (test_preds_plot + 2*test_preds[1]), color='red', alpha=.4)
     ax.fill_between(dates_plot, test_preds_plot, (test_preds_plot + -2*test_preds[1]), color='red', alpha=.4)
 
+    ax.tick_params(axis='both', which='major', labelsize=14)
     plt.legend(loc=2, fontsize=14)
     plt.ylabel('Corn Futures Price ($)', size=14, labelpad=30)
     plt.suptitle('Neural Network Predictions\nUsing 3 Month Lagged Features', size=20, alpha=.8)
